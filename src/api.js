@@ -8,6 +8,7 @@ export async function fetchLeads() {
   })
   if (!res.ok) throw new Error(`Failed to fetch leads: ${res.status}`)
   const data = await res.json()
+  if (!Array.isArray(data.record)) throw new Error('JSONBin returned unexpected data format')
   return data.record
 }
 
