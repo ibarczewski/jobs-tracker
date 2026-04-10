@@ -88,3 +88,12 @@ tbody td select {
   background: #fff;
   cursor: pointer;
 }
+
+.error {
+  background: #fee2e2;
+  color: #991b1b;
+  padding: 10px 14px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  font-size: 14px;
+}

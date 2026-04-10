@@ -1,31 +1,32 @@
-import { useState } from 'react'
-import { STORAGE_KEY } from './constants'
+import { useState, useEffect } from 'react'
 import { today } from './utils'
+import { fetchLeads, persistLeads } from './api'
 import AddLeadForm from './components/AddLeadForm'
 import LeadsTable from './components/LeadsTable'
 import './App.css'
 
-function loadLeads() {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY)
-    return raw ? JSON.parse(raw) : []
-  } catch {
-    return []
-  }
-}
-
-function saveLeads(leads) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(leads))
-}
-
 export default function App() {
-  const [leads, setLeads] = useState(loadLeads)
+  const [leads, setLeads] = useState([])
   const [sortConfig, setSortConfig] = useState({ column: 'lastUpdated', direction: 'desc' })
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+
+  useEffect(() => {
+    fetchLeads()
+      .then(data => {
+        setLeads(data)
+        setLoading(false)
+      })
+      .catch(err => {
+        setError(err.message)
+        setLoading(false)
+      })
+  }, [])
 
   function addLead(lead) {
     const updated = [...leads, lead]
     setLeads(updated)
-    saveLeads(updated)
+    persistLeads(updated).catch(err => setError(err.message))
   }
 
   function updateStatus(id, status) {
@@ -33,7 +34,7 @@ export default function App() {
       l.id === id ? { ...l, status, lastUpdated: today() } : l
     )
     setLeads(updated)
-    saveLeads(updated)
+    persistLeads(updated).catch(err => setError(err.message))
   }
 
   function toggleSort(column) {
@@ -44,9 +45,12 @@ export default function App() {
     )
   }
 
+  if (loading) return <p>Loading...</p>
+
   return (
     <div className="app">
       <h1>Job Search Tracker</h1>
+      {error && <p className="error">{error}</p>}
       <AddLeadForm onAdd={addLead} />
       <LeadsTable
         leads={leads}
