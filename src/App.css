@@ -1,0 +1,90 @@
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: #f8fafc;
+  color: #1e293b;
+}
+
+.app {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+h1 {
+  margin: 0 0 20px;
+  font-size: 1.5rem;
+}
+
+.add-form {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.add-form input,
+.add-form select {
+  padding: 8px 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 14px;
+  background: #fff;
+}
+
+.add-form input[placeholder="Company *"] { flex: 1 1 160px; }
+.add-form input[placeholder="Contact"]   { flex: 1 1 140px; }
+.add-form select                         { flex: 1 1 180px; }
+
+.add-form button {
+  padding: 8px 18px;
+  background: #6366f1;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.add-form button:hover { background: #4f46e5; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,.08);
+}
+
+thead th {
+  text-align: left;
+  padding: 10px 12px;
+  font-size: 13px;
+  color: #64748b;
+  border-bottom: 1px solid #e2e8f0;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+}
+
+thead th:hover { color: #1e293b; }
+
+tbody td {
+  padding: 10px 12px;
+  font-size: 14px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+tbody tr:last-child td { border-bottom: none; }
+
+tbody td select {
+  padding: 4px 6px;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  font-size: 13px;
+  background: #fff;
+  cursor: pointer;
+}
