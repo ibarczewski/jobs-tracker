@@ -26,6 +26,7 @@ export default function App() {
   function addLead(lead) {
     const updated = [...leads, lead]
     setLeads(updated)
+    setError(null)
     persistLeads(updated).catch(err => setError(err.message))
   }
 
@@ -34,6 +35,7 @@ export default function App() {
       l.id === id ? { ...l, status, lastUpdated: today() } : l
     )
     setLeads(updated)
+    setError(null)
     persistLeads(updated).catch(err => setError(err.message))
   }
 

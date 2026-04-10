@@ -58,6 +58,9 @@ describe('App', () => {
   it('shows error banner when fetchLeads fails', async () => {
     fetchLeads.mockRejectedValue(new Error('Failed to fetch leads: 401'))
     render(<App />)
-    await waitFor(() => expect(screen.getByText(/failed to fetch leads/i)).toBeInTheDocument())
+    await waitFor(() => {
+      expect(screen.getByText(/failed to fetch leads/i)).toBeInTheDocument()
+      expect(screen.queryByText('Loading...')).not.toBeInTheDocument()
+    })
   })
 })
