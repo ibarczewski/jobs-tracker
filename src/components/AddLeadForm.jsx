@@ -35,7 +35,7 @@ export default function AddLeadForm({ onAdd }) {
         onChange={e => setContact(e.target.value)}
       />
       <select value={status} onChange={e => setStatus(e.target.value)}>
-        {STATUSES.map(s => <option key={s}>{s}</option>)}
+        {STATUSES.map(s => <option key={s} value={s}>{s}</option>)}
       </select>
       <button type="submit">Add</button>
     </form>

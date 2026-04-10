@@ -19,7 +19,7 @@ describe('today', () => {
 
   it('returns the current local date', () => {
     vi.useFakeTimers()
-    vi.setSystemTime(new Date('2026-04-09T12:00:00'))
+    vi.setSystemTime(new Date('2026-04-09T12:00:00')) // local noon — not UTC
     expect(today()).toBe('2026-04-09')
     vi.useRealTimers()
   })

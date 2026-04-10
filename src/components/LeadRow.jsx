@@ -10,7 +10,7 @@ export default function LeadRow({ lead, onStatusChange }) {
           value={lead.status}
           onChange={e => onStatusChange(lead.id, e.target.value)}
         >
-          {STATUSES.map(s => <option key={s}>{s}</option>)}
+          {STATUSES.map(s => <option key={s} value={s}>{s}</option>)}
         </select>
       </td>
       <td>{lead.lastUpdated}</td>

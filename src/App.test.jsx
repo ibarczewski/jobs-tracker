@@ -2,6 +2,7 @@ import { describe, it, expect, beforeEach } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import App from './App'
+import { STORAGE_KEY } from './constants'
 
 beforeEach(() => {
   localStorage.clear()
@@ -17,7 +18,7 @@ describe('App', () => {
     const leads = [
       { id: '1', company: 'Acme', contact: '', status: 'Applied', lastUpdated: '2026-04-01' },
     ]
-    localStorage.setItem('jobs-tracker-leads', JSON.stringify(leads))
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(leads))
     render(<App />)
     expect(screen.getByText('Acme')).toBeInTheDocument()
   })
@@ -27,7 +28,7 @@ describe('App', () => {
     render(<App />)
     await user.type(screen.getByPlaceholderText('Company *'), 'Globex')
     await user.click(screen.getByRole('button', { name: /add/i }))
-    const stored = JSON.parse(localStorage.getItem('jobs-tracker-leads'))
+    const stored = JSON.parse(localStorage.getItem(STORAGE_KEY))
     expect(stored).toHaveLength(1)
     expect(stored[0].company).toBe('Globex')
   })
@@ -37,11 +38,11 @@ describe('App', () => {
     const leads = [
       { id: '1', company: 'Acme', contact: '', status: 'Applied', lastUpdated: '2026-04-01' },
     ]
-    localStorage.setItem('jobs-tracker-leads', JSON.stringify(leads))
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(leads))
     render(<App />)
     const rowSelect = screen.getAllByRole('combobox').find(el => el.value === 'Applied')
     await user.selectOptions(rowSelect, 'Interview')
-    const stored = JSON.parse(localStorage.getItem('jobs-tracker-leads'))
+    const stored = JSON.parse(localStorage.getItem(STORAGE_KEY))
     expect(stored[0].status).toBe('Interview')
   })
 })
